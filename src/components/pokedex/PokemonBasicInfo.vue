@@ -49,15 +49,52 @@
       v-if="isAuthenticated && pokemon && Object.keys(pokemon).length"
     >
       <div class="col-12">
-        <button class="btn btn-success btn-see-evolution-chain">
+        <button
+          class="btn btn-success btn-see-evolution-chain"
+          data-bs-toggle="modal"
+          data-bs-target="#evolutionModal"
+        >
           Evolution chain
         </button>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="evolutionModal"
+      tabindex="-1"
+      aria-labelledby="evolutionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="evolutionModalLabel">
+              {{ capitalize(pokemon.name) }} evolution chain
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <EvolutionChain
+              :evolutionChain="pokemon.evolutionChain || {}"
+              :currentPokemonId="pokemon.id"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import EvolutionChain from "@/components/pokedex/EvolutionChain.vue";
+import { ref } from "vue";
+
 const props = defineProps({
   pokemon: {
     type: Object,
@@ -72,6 +109,8 @@ const props = defineProps({
     default: false,
   },
 });
+
+const showEvolution = ref(false);
 
 const capitalize = (text) =>
   text ? text.charAt(0).toUpperCase() + text.slice(1) : "";
@@ -187,5 +226,9 @@ const formatWeight = (w) => (w ? `${(w / 10).toFixed(1)} kg` : "N/A");
 .btn-see-evolution-chain {
   float: right;
   font-size: 1.5rem;
+}
+
+.modal-title {
+  font-size: 1.5rem !important;
 }
 </style>
