@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* style.css o un archivo global CSS */
+
+.bg-success,
+.btn-success {
+  background-color: #6DE1D2 !important;
+  border-color: #6DE1D2 !important;
+}
+
+.text-success {
+  color: #6DE1D2 !important;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #56bfb6 !important; /* opcionalmente un tono más oscuro */
+  border-color: #56bfb6 !important;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +32,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --custom-primary-background-color: #f75a5a;
+  --custom-secundary-background-color: #ffffff;
+  --custom-primary-text-color: #ffffff;
 }
 
 a {
@@ -26,8 +51,10 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  /* min-width: 320px;
+  min-height: 100vh; */
+  font-family: 'VT323', monospace !important;
+  font-size: 1.60rem !important;
 }
 
 h1 {
@@ -59,9 +86,10 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
+  width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
