@@ -6,8 +6,18 @@
         <span class="light red"></span>
       </div>
       <div class="pokedex-screen-off pokemon-image">
+        <div
+          v-if="loading"
+          class="d-flex justify-content-center align-items-center"
+        >
+          <div
+            class="spinner-border"
+            role="status"
+            style="border-top-color: #6de1d2; animation-duration: 0.4s"
+          ></div>
+        </div>
         <img
-          v-if="pokemon?.urlImage"
+          v-else-if="pokemon?.urlImage"
           :src="pokemon.urlImage"
           :alt="pokemon.name"
           class="img-pokemon-screen"
@@ -21,17 +31,27 @@
       <div class="row info">
         <div class="col-sm-12 col-md-6">
           <p><strong>Height:</strong> {{ formatHeight(pokemon.height) }}</p>
-          <p><strong>Base Experience:</strong> ⭐{{ pokemon.baseExperience }}</p>
+          <p>
+            <strong>Base Experience:</strong> ⭐{{ pokemon.baseExperience }}
+          </p>
         </div>
         <div class="col-sm-12 col-md-6">
           <p><strong>Weight:</strong> {{ formatWeight(pokemon.weight) }}</p>
-          <p><strong>Evolution Chain ID:</strong> {{ pokemon.evolutionChain?.id }}</p>          
+          <p v-if="pokemon.evolutionChain">
+            <strong>Evolution Chain ID:</strong>
+            {{ pokemon.evolutionChain?.id }}
+          </p>
         </div>
       </div>
     </div>
-    <div class="row mt-3">
+    <div
+      class="row mt-3"
+      v-if="isAuthenticated && pokemon && Object.keys(pokemon).length"
+    >
       <div class="col-12">
-        <button class="btn btn-success btn-see-evolution-chain">Evolution chain</button>
+        <button class="btn btn-success btn-see-evolution-chain">
+          Evolution chain
+        </button>
       </div>
     </div>
   </div>
@@ -43,6 +63,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  isAuthenticated: {
+    type: Boolean,
+    default: false,
+  },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const capitalize = (text) =>
@@ -53,6 +81,10 @@ const formatWeight = (w) => (w ? `${(w / 10).toFixed(1)} kg` : "N/A");
 </script>
 
 <style scoped>
+.spinner-custom {
+  border-color: #6de1d2 !important;
+  border-top-color: #6de1d2 !important;
+}
 .pokedex-basic-info {
   margin-top: 1rem;
 }
@@ -143,17 +175,17 @@ const formatWeight = (w) => (w ? `${(w / 10).toFixed(1)} kg` : "N/A");
   align-items: stretch;
   width: 100%;
   position: relative;
-  overflow: hidden;  
+  overflow: hidden;
 }
 
 .pokemon-name {
   font-size: 2.3rem;
-  color: #FFD63A;
+  color: #ffd63a;
   margin-bottom: 1rem;
 }
 
 .btn-see-evolution-chain {
   float: right;
-  font-size: 1.5rem;  
+  font-size: 1.5rem;
 }
 </style>

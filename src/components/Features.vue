@@ -35,10 +35,13 @@
               <span class="btn btn-warning btn-custom">Explore</span> and start
               discovering!
             </p>
-            <p>
+            <p v-if="!isAuthenticated">
               Want more features?
               <span class="btn btn-success btn-custom">Sign up</span> and evolve
               your experience!
+            </p>
+            <p v-else>
+              Since you're already a trainer 😎, you can view each Pokémon's evolution chains 🧬!
             </p>
           </div>
         </div>
@@ -47,7 +50,13 @@
   </section>
 </template>
 
-<script setup></script>
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
+</script>
 
 <style scoped>
 .features {

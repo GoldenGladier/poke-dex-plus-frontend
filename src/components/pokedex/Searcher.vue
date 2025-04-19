@@ -51,7 +51,6 @@ const handleSearch = () => {
 .pokedex-input {
   text-align: center;
   padding: 0.8rem 1rem;
-  /* font-size: 2rem; */
   border-radius: 8px;
   border: 2px solid #888;
   outline: none;
@@ -89,8 +88,8 @@ const handleSearch = () => {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 .light.big {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 5px solid #ccc;
 }
