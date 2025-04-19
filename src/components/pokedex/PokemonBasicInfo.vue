@@ -14,7 +14,7 @@
         />
       </div>
     </div>
-    <div class="pokemon-details" v-if="pokemon">
+    <div class="pokemon-details" v-if="pokemon && Object.keys(pokemon).length">
       <h2 class="pokemon-name">
         #{{ pokemon.id }} | {{ capitalize(pokemon.name) }}
       </h2>

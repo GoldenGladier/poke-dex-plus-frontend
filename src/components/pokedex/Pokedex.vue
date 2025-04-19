@@ -21,12 +21,12 @@
 </style>
 
 <script setup>
-import Searcher from "./Searcher.vue";
-import PokemonBasicInfo from "./PokemonBasicInfo.vue";
+import Searcher from "@/components/Pokedex/Searcher.vue";
+import PokemonBasicInfo from "@/components/pokedex/PokemonBasicInfo.vue";
 import { ref } from "vue";
 
 const pokemonQuery = ref("");
-const selectedPokemon = ref(null);
+const selectedPokemon = ref({});
 
 const searchPokemon = (query) => {
   console.log("Searching for:", query);

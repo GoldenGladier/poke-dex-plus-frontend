@@ -20,14 +20,21 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            <router-link class="nav-link" to="/" active-class="active">Home</router-link>            
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
-          </li>
+          <template v-if="!isAuthenticated">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/auth/register" active-class="active">Register</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/auth/login" active-class="active">Login</router-link>            
+            </li>          
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <a class="nav-link" href="#" @click.prevent="logout">Log out</a>
+            </li>
+          </template>          
         </ul>
       </div>
     </div>
@@ -35,7 +42,12 @@
 </template>
 
 <script setup>
+import { useStore } from 'vuex';
+import { computed } from 'vue';
 import { ref, onMounted, onBeforeUnmount } from "vue";
+
+const store = useStore();
+const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
 
 const isScrolled = ref(false);
 const handleScroll = () => {
@@ -49,6 +61,11 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+const logout = () => {
+  store.dispatch('auth/logout');
+  router.push('/');
+};
 </script>
 
 <style scoped>
