@@ -19,22 +19,48 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/" active-class="active">Home</router-link>            
+          <li class="nav-item mx-3">
+            <router-link class="nav-link" to="/" active-class="active"
+              >Home</router-link
+            >
           </li>
           <template v-if="!isAuthenticated">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/auth/register" active-class="active">Register</router-link>
+            <li class="nav-item mx-3">
+              <router-link
+                class="nav-link"
+                to="/auth/register"
+                active-class="active"
+                >Register</router-link
+              >
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/auth/login" active-class="active">Login</router-link>            
-            </li>          
+            <li class="nav-item mx-3">
+              <router-link
+                class="nav-link"
+                to="/auth/login"
+                active-class="active"
+                >Login</router-link
+              >
+            </li>
           </template>
           <template v-else>
-            <li class="nav-item">
+            <li class="nav-item mx-3" v-if="role == 'ADMIN'">
+              <router-link
+                class="nav-link"
+                to="/admin/api-access-log"
+                active-class="active"
+              >
+                Api access log
+              </router-link>
+            </li>
+            <li class="nav-item mx-3">
               <a class="nav-link" href="#" @click.prevent="logout">Log out</a>
             </li>
-          </template>          
+            <li class="nav-item mx-4">
+              <span class="nav-link not-link font-weight-bold text-primary">
+                {{ username }} | {{ role }}
+              </span>
+            </li>
+          </template>
         </ul>
       </div>
     </div>
@@ -42,12 +68,16 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { computed } from "vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
+const router = useRouter();
 const store = useStore();
-const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
+const isAuthenticated = computed(() => store.getters["auth/isAuthenticated"]);
+const username = computed(() => store.getters["auth/getUsername"]);
+const role = computed(() => store.getters["auth/getRole"]);
 
 const isScrolled = ref(false);
 const handleScroll = () => {
@@ -63,8 +93,8 @@ onBeforeUnmount(() => {
 });
 
 const logout = () => {
-  store.dispatch('auth/logout');
-  router.push('/');
+  store.dispatch("auth/logout");
+  router.push("/");
 };
 </script>
 
@@ -122,6 +152,13 @@ const logout = () => {
   );
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+}
+
+.nav-link.not-link:hover::after,
+.nav-link.not-link::after,
+.nav-link.not-link.active::after {
+  opacity: 0 !important;
+  content: none !important;
 }
 
 .navbar-toggler {

@@ -7,7 +7,7 @@ export const register = async (username, password) => {
     username,
     password,
   });
-  return response.data.token;
+  return response;
 };
 
 export const login = async (username, password) => {
@@ -15,5 +15,5 @@ export const login = async (username, password) => {
     username,
     password,
   });
-  return response.data.token;
+  return response;
 };

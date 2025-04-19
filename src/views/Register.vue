@@ -36,7 +36,7 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "@/services/axios"; // lo crearemos ahora
+import axios from "@/services/axios";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -58,8 +58,14 @@ const register = async () => {
   }
 
   try {
-    const token = await registerUser(username.value, password.value);
-    await store.dispatch("auth/saveToken", token);
+    const response = await registerUser(username.value, password.value);
+    const { token, username: registeredUsername, role } = response.data;
+
+    await store.dispatch("auth/saveToken", {
+      token,
+      username: registeredUsername,
+      role,
+    });
     router.push("/");
   } catch (error) {
     console.error("Register error: ", error);

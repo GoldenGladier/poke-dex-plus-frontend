@@ -42,8 +42,14 @@ const store = useStore();
 
 const login = async () => {
   try {
-    const token = await loginUser(username.value, password.value);
-    await store.dispatch("auth/saveToken", token);
+    const response = await loginUser(username.value, password.value);
+    const { token, username: loggedInUsername, role } = response.data;
+
+    await store.dispatch("auth/saveToken", {
+      token,
+      username: loggedInUsername,
+      role,
+    });
     router.push("/");
   } catch (error) {
     console.error("Login error: ", error);
