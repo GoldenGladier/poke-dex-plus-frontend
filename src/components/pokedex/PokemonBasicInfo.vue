@@ -1,5 +1,5 @@
 <template>
-  <div class="pokedex-basic-info" v-if="pokemon">
+  <div class="pokedex-basic-info">
     <div class="pokedex-screen">
       <div class="pokedex-lights">
         <span class="light red"></span>
@@ -7,25 +7,32 @@
       </div>
       <div class="pokedex-screen-off pokemon-image">
         <img
-          v-if="pokemon.urlImage"
+          v-if="pokemon?.urlImage"
           :src="pokemon.urlImage"
           :alt="pokemon.name"
           class="img-pokemon-screen"
         />
       </div>
     </div>
-    <div class="pokemon-details">
+    <div class="pokemon-details" v-if="pokemon">
       <h2 class="pokemon-name">
-        #{{ pokemon.id }} - {{ capitalize(pokemon.name) }}
+        #{{ pokemon.id }} | {{ capitalize(pokemon.name) }}
       </h2>
-      <ul class="info-list">
-        <li><strong>Height:</strong> {{ formatHeight(pokemon.height) }}</li>
-        <li><strong>Weight:</strong> {{ formatWeight(pokemon.weight) }}</li>
-        <li><strong>Base Experience:</strong> {{ pokemon.baseExperience }}</li>
-        <li>
-          <strong>Evolution Chain ID:</strong> {{ pokemon.evolutionChain?.id }}
-        </li>
-      </ul>
+      <div class="row info">
+        <div class="col-sm-12 col-md-6">
+          <p><strong>Height:</strong> {{ formatHeight(pokemon.height) }}</p>
+          <p><strong>Base Experience:</strong> ⭐{{ pokemon.baseExperience }}</p>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <p><strong>Weight:</strong> {{ formatWeight(pokemon.weight) }}</p>
+          <p><strong>Evolution Chain ID:</strong> {{ pokemon.evolutionChain?.id }}</p>          
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <button class="btn btn-success btn-see-evolution-chain">Evolution chain</button>
+      </div>
     </div>
   </div>
 </template>
@@ -123,22 +130,30 @@ const formatWeight = (w) => (w ? `${(w / 10).toFixed(1)} kg` : "N/A");
 .pokemon-details {
   flex: 1 1 300px;
   padding-left: 1.5rem;
+
+  margin-top: 1rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  padding-top: 2rem;
+  border: 4px inset #ccc;
+  border-radius: 10px;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  position: relative;
+  overflow: hidden;  
 }
 
 .pokemon-name {
-  font-size: 1.8rem;
-  color: #f75a5a;
+  font-size: 2.3rem;
+  color: #FFD63A;
   margin-bottom: 1rem;
 }
 
-.info-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.info-list li {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+.btn-see-evolution-chain {
+  float: right;
+  font-size: 1.5rem;  
 }
 </style>
