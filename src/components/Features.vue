@@ -41,21 +41,42 @@
               your experience!
             </p>
             <p v-else>
-              Since you're already a trainer 😎, you can view each Pokémon's evolution chains 🧬!
+              Since you're already a trainer 😎, you can view each Pokémon's
+              evolution chains 🧬!
             </p>
           </div>
         </div>
       </div>
     </div>
+    <div class="container">
+      <p>
+        You can also check the status of our API
+        <a
+          href="http://localhost:8080/actuator/health"
+          target="_blank"
+          class="custom-link"
+          >here</a
+        >.
+      </p>
+      <p>
+        Or the Swagger documentation
+        <a
+          href="http://localhost:8080/swagger-ui/index.html"
+          target="_blank"
+          class="custom-link"
+          >here</a
+        >.
+      </p>
+    </div>
   </section>
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 const store = useStore();
-const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
+const isAuthenticated = computed(() => store.getters["auth/isAuthenticated"]);
 </script>
 
 <style scoped>
@@ -71,5 +92,14 @@ const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
 .btn-custom {
   font-size: 1.5rem;
   padding: 0 1rem;
+}
+
+.custom-link {
+  color: #6de1d2;
+  text-decoration: none;
+}
+
+.custom-link:hover {
+  text-decoration: underline;
 }
 </style>
