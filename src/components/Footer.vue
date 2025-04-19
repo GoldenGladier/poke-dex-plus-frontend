@@ -11,7 +11,7 @@
       class="w-full text-center py-6 px-4 bg-gray-900 text-white text-sm custom-footer"
     >
       <p>
-        © 2025. All rights reserved. <br />
+        ©2025. All rights reserved. <br />
         Project developed by <strong>Omar Aguirre Alvarez</strong>.
       </p>
     </footer>
