@@ -8,6 +8,6 @@
 
 <script setup>
 import Banner from '@/components/Banner.vue'
-import Features from '@/components/features.vue'
+import Features from '@/components/Features.vue'
 import Pokedex from '@/components/pokedex/Pokedex.vue'
 </script>
