@@ -110,7 +110,7 @@
 </style>
 
 <script setup>
-import Searcher from "@/components/Pokedex/Searcher.vue";
+import Searcher from "@/components/pokedex/Searcher.vue";
 import PokemonBasicInfo from "@/components/pokedex/PokemonBasicInfo.vue";
 import {
   getPokemonWithEvolution,
